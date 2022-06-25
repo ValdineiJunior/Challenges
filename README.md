@@ -8,5 +8,4 @@
 
     <img
       src="https://github.com/ValdineiJunior/Hackerrank/blob/main/screenShot.png"
-      width="20%"
     />
