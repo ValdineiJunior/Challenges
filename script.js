@@ -1,29 +1,39 @@
 function processData(input) {
-    const operation = input.slice(0,1)
-    const type = input.slice(2,3)
+    const operationSplitOrCombine = input.slice(0,1)
+    const typeMethodOrClassOrVariable = input.slice(2,3)
     const words = input.slice(4)
+    let wordsInLowerCase = words.toLowerCase()
 
-    let iterator = words[Symbol.iterator]()
+    // console.log(wordsInLowerCase)
 
+    // let iterator = words[Symbol.iterator]()
 
-    function splitData(input) {
+    if(operationSplitOrCombine === "S") {
+        
+
+    } if (operationSplitOrCombine === "C") {
+        let indexOfBlankSpaces = words.indexOf(' ')
+        let counter = indexOfBlankSpaces
+        let result = words.replace(' ','')
+
+        while (counter>0) {
+
+            console.log(result)
+            console.log(counter)
+            characterToChange = result[counter]
+            console.log(characterToChange)
+
+            result = result.replace(characterToChange,characterToChange.toUpperCase())
+            counter = result.indexOf(' ')
+            result = result.replace(' ','')
+      
+        }
 
     }
 
-    function combineData(input) {
-
-    }
-
-    if(operation === "S") {
-        splitData(input)
-    } if (operation === "C") {
-        combineData(input)
-    }
-
-console.log(iterator)
 } 
 
-const input = ("S;V;iPad")
+const input = ("C;M;mouse pad mouse pad")
 processData(input)
 
 // Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
