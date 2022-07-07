@@ -12,27 +12,17 @@ function processData(input) {
         
 
     } if (operationSplitOrCombine === "C") {
-        let indexOfBlankSpaces = words.indexOf(' ')
-        let counter = indexOfBlankSpaces
-        let result = words.replace(' ','')
-
-        while (counter>0) {
-
-            console.log(result)
-            console.log(counter)
-            characterToChange = result[counter]
-            console.log(characterToChange)
-
-            result = result.replace(characterToChange,characterToChange.toUpperCase())
-            counter = result.indexOf(' ')
-            result = result.replace(' ','')
-      
-        }
-
+        let arrayWords = words.split(' ')
+        let arrayCombineWord = []
+        arrayWords.map(element => {
+            
+            arrayCombineWord.push(element)
+            console.log(element)
+            return arrayCombineWord                     
+        });
+        console.log(arrayCombineWord)
     }
-
 } 
-
 const input = ("C;M;mouse pad mouse pad")
 processData(input)
 
