@@ -5,8 +5,13 @@ function processData(input) {
   let wordsInLowerCase = words.toLowerCase()
   let combineWords = ''
   let result
-
-  function combineWordsWithFirstCharInUpperCase(words) {
+  let arrayWords = words.split('')
+  let arrayWordsLowerCase = wordsInLowerCase.split('')
+  let arrayIndex = []
+  let combineWords2 = ''
+  
+    function combineWordsWithFirstCharInUpperCase(words)
+   {
     let arrayWords = words.split(' ')
     arrayWords.map(element => {
       firstCharInUpperCase = element.slice(0, 1).toUpperCase()
@@ -43,50 +48,93 @@ function processData(input) {
     return result
   }
 
-  if (operationSplitOrCombine === 'S') {
-    let arrayWords = words.split('')
-    let arrayWordsLowerCase = wordsInLowerCase.split('')
-    let arrayIndex = []
+  function turnStringInArray () {
     for (let index = 0; index < arrayWords.length; index++) {
-      const elementWords = arrayWords[index]
-      const elementLowerCase = arrayWordsLowerCase[index]
-      if (elementWords !== elementLowerCase) {
-        arrayIndex.push(index)
+        const elementWords = arrayWords[index]
+        const elementLowerCase = arrayWordsLowerCase[index]
+        if (elementWords !== elementLowerCase) {
+          arrayIndex.push(index)
+        }
       }
-    }
-    arrayWordsWithSpaces = arrayWordsLowerCase
-    arrayIndex.map(element => {
-      arrayWordsWithSpaces.splice(element, 0, ' ')
-    })
+  }
 
-    arrayWordsWithSpaces.map(element => {
-      firstCharInLowerCase = element.slice(0, 1).toLowerCase()
-      restOfTheWord = element.slice(1)
-      wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
-      combineWords = combineWords.concat(wordWithSpaces)
-      return combineWords
-    })
+  function splitWordsAndFormatToLowerCase() {
 
-    if (operationSplitOrCombine === 'C') {
-      combineWordsWithFirstCharInUpperCase(words)
-      formatAsMethod(combineWords)
-    }
-    console.log(result)
+    turnStringInArray()
+        
+      arrayWordsWithSpaces = arrayWordsLowerCase
+      verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
+      if (verifyIfFirstCharIsUpperCase !== -1) {
+        arrayIndex = arrayIndex.slice(1)
+      }
+
+      arrayIndex.map(element => {
+        arrayWordsWithSpaces.splice(element, 0, ' ')
+      })
+      arrayWordsWithSpaces.map(element => {
+        firstCharInLowerCase = element.slice(0, 1).toLowerCase()
+        restOfTheWord = element.slice(1)
+        wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
+        combineWords2 = combineWords2.concat(wordWithSpaces)
+        result = combineWords2
+        return result
+      })
+  
+      
+      // console.log(result)
+      return result
+
+  }
+
+  if (operationSplitOrCombine === 'S') {
+
+    switch (typeMethodOrClassOrVariable) {
+        case 'M':
+            splitWordsAndFormatToLowerCase()
+            result = result.slice(0,-2)
+          break
+        case 'C':
+            splitWordsAndFormatToLowerCase()
+          break
+        case 'V':
+            splitWordsAndFormatToLowerCase()
+        
+          break
+        default:
+          console.log('invalid parameter')
+          break
+      }
+      return result
+
+    
+  } else if (operationSplitOrCombine === 'C') {
+    combineWordsWithFirstCharInUpperCase(words)
+    formatAsMethod(combineWords)
+    
     return result
   }
+  console.log(result)
+  return result
 }
 
-const input1 = 'C;C;mouse pad mouse pad'
+
+
+const input = 'C;C;mouse pad mouse pad'
 const input2 = 'S;V;iPad'
 const input3 = 'C;M;mouse pad'
 const input4 = 'C;C;code swarm'
 const input5 = 'S;C;OrangeHighlighter'
+const input6 = 'S;M;plasticCup()'
 
-processData(input1)
-processData(input2)
-processData(input3)
-processData(input4)
-processData(input5)
+
+
+console.log(processData(input))
+console.log(processData(input2))
+console.log(processData(input3))
+console.log(processData(input4))
+console.log(processData(input5))
+console.log(processData(input6))
+
 
 // Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
 
