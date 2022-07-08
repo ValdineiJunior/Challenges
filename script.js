@@ -1,6 +1,6 @@
 function processData(input) {
-  const operationSplitOrCombine = input.slice(0, 1)
-  const typeMethodOrClassOrVariable = input.slice(2, 3)
+  const operationSplitOrCombine = input.slice(0,1)
+  const typeMethodOrClassOrVariable = input.slice(2,3)
   const words = input.slice(4)
   let wordsInLowerCase = words.toLowerCase()
   let combineWords = ''
@@ -8,9 +8,9 @@ function processData(input) {
   let arrayWords = words.split('')
   let arrayWordsLowerCase = wordsInLowerCase.split('')
   let arrayIndex = []
-  let combineWords2 = ''
   
-    function combineWordsWithFirstCharInUpperCase(words)
+  
+    function combineWordsWithFirstCharInUpperCase()
    {
     let arrayWords = words.split(' ')
     arrayWords.map(element => {
@@ -22,7 +22,7 @@ function processData(input) {
     })
   }
 
-  function formatAsMethod(combineWords) {
+  function formatAsMethod() {
     switch (typeMethodOrClassOrVariable) {
       case 'M':
         firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
@@ -58,15 +58,19 @@ function processData(input) {
       }
   }
 
-  function splitWordsAndFormatToLowerCase() {
+  function transformFirstCharInLowerCase() {
 
+    verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
+    if (verifyIfFirstCharIsUpperCase !== -1) {
+      arrayIndex = arrayIndex.slice(1)
+    }
+  }
+
+  function splitWordsAndFormatToLowerCase() {
+    let combineWords2 = ''
     turnStringInArray()
-        
-      arrayWordsWithSpaces = arrayWordsLowerCase
-      verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
-      if (verifyIfFirstCharIsUpperCase !== -1) {
-        arrayIndex = arrayIndex.slice(1)
-      }
+    arrayWordsWithSpaces = arrayWordsLowerCase
+    transformFirstCharInLowerCase()
 
       arrayIndex.map(element => {
         arrayWordsWithSpaces.splice(element, 0, ' ')
@@ -79,13 +83,8 @@ function processData(input) {
         result = combineWords2
         return result
       })
-  
-      
-      // console.log(result)
       return result
-
   }
-
   if (operationSplitOrCombine === 'S') {
 
     switch (typeMethodOrClassOrVariable) {
@@ -106,7 +105,6 @@ function processData(input) {
       }
       return result
 
-    
   } else if (operationSplitOrCombine === 'C') {
     combineWordsWithFirstCharInUpperCase(words)
     formatAsMethod(combineWords)
@@ -117,16 +115,12 @@ function processData(input) {
   return result
 }
 
-
-
 const input = 'C;C;mouse pad mouse pad'
 const input2 = 'S;V;iPad'
 const input3 = 'C;M;mouse pad'
 const input4 = 'C;C;code swarm'
 const input5 = 'S;C;OrangeHighlighter'
 const input6 = 'S;M;plasticCup()'
-
-
 
 console.log(processData(input))
 console.log(processData(input2))
