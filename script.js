@@ -47,7 +47,7 @@ function processData(input) {
         console.log('invalid parameter')
         break
     }
-    return result
+    
   }
 
   function turnStringInArray () {
@@ -83,9 +83,9 @@ function processData(input) {
         wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
         combineWords2 = combineWords2.concat(wordWithSpaces)
         result = combineWords2
-        return result
+        
       })
-      return result
+      
   }
   if (operationSplitOrCombine === 'S') {
 
@@ -105,16 +105,13 @@ function processData(input) {
           console.log('invalid parameter')
           break
       }
-      return result
 
   } else if (operationSplitOrCombine === 'C') {
     combineWordsWithFirstCharInUpperCase(words)
     formatAsMethod(combineWords)
     
-    return result
   }
   console.log(result)
-  return result
 }
 
 const input = 'C;C;mouse pad mouse pad'
