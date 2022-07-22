@@ -1,132 +1,191 @@
 function processData(input) {
-  
-  const operationSplitOrCombine = input.slice(0,1)
-  const typeMethodOrClassOrVariable = input.slice(2,3)
-  const words = input.slice(4)
-  let wordsInLowerCase = words.toLowerCase()
-  let combineWords = ''
-  let result 
-  let arrayWords = words.split('')
-  let arrayWordsInLowerCase = wordsInLowerCase.split('')
-  let arrayIndex = []
-  
-  
-    function combineWordsWithFirstCharInUpperCase()
-   {
-    
-    let arrayWords = words.split(' ')
-    arrayWords.map(element => {
-      firstCharInUpperCase = element.slice(0, 1).toUpperCase()
-      restOfTheWord = element.slice(1)
-      wordInCamelCase = firstCharInUpperCase.concat(restOfTheWord)
-      combineWords = combineWords.concat(wordInCamelCase)
-      return combineWords
-    })
-  }
+  finalResult = ''
+  let arrayToBreakeLine = [0]
+  function getIndexForBreakeTextInLines(input) {
 
-  function formatAsMethod() {
-    switch (typeMethodOrClassOrVariable) {
-      case 'M':
-        firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
-        restOfTheWord = combineWords.slice(1)
-        wordInCamelCase = firstCharInLowerCase
-          .concat(restOfTheWord)
-          .concat('()')
-        result = wordInCamelCase
-        break
-      case 'C':
-        result = combineWords
-        break
-      case 'V':
-        firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
-        restOfTheWord = combineWords.slice(1)
-        wordInCamelCase = firstCharInLowerCase.concat(restOfTheWord)
-        result = wordInCamelCase
-        break
-      default:
-        console.log('invalid parameter')
-        break
+    let indexSToBreakLine = input.indexOf('\nS;')
+    let indexCToBreakLine = input.indexOf('\nC;')
+  
+    while ((indexSToBreakLine) !== -1) {
+      arrayToBreakeLine.push(indexSToBreakLine)
+      indexSToBreakLine = input.indexOf('\nS;', indexSToBreakLine + 1)
     }
+
+    while ((indexCToBreakLine) !== -1) {
+      arrayToBreakeLine.push(indexCToBreakLine)
+      indexCToBreakLine = input.indexOf('\nC;', indexCToBreakLine + 1)
+    }
+
+    arrayToBreakeLine.sort((a,b) => a-b)
+  }
+  getIndexForBreakeTextInLines(input)
+
+  let arraywithLines = []
+
+  function breakeTextInLines(arrayToBreakeLine) {
     
-  }
-
-  function turnStringInArray () {
-    for (let index = 0; index < arrayWords.length; index++) {
-        const elementWords = arrayWords[index]
-        const elementLowerCase = arrayWordsInLowerCase[index]
-        if (elementWords !== elementLowerCase) {
-          arrayIndex.push(index)
-        }
-      }
-  }
-
-  function transformFirstCharInLowerCase() {
-
-    verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
-    if (verifyIfFirstCharIsUpperCase !== -1) {
-      arrayIndex = arrayIndex.slice(1)
+    for (let index = 0; index < arrayToBreakeLine.length; index++) {
+      beginningSlice = arrayToBreakeLine[index]
+      endSlice = arrayToBreakeLine[index + 1]
+      line = (input.slice(beginningSlice,endSlice))
+      line = line.replace('\n','')
+      line = line.replace('\n','')
+      arraywithLines.push(line)
     }
   }
+  breakeTextInLines(arrayToBreakeLine)
 
-  function splitWordsAndFormatToLowerCase() {
-    let combineWords2 = ''
-    turnStringInArray()
-    arrayWordsWithSpaces = arrayWordsInLowerCase
-    transformFirstCharInLowerCase()
+  arraywithLines.forEach(line => {
+    
+    processLines(line)
 
-      arrayIndex.map(element => {
-        arrayWordsWithSpaces.splice(element, 0, ' ')
-      })
-      arrayWordsWithSpaces.map(element => {
-        firstCharInLowerCase = element.slice(0, 1).toLowerCase()
-        restOfTheWord = element.slice(1)
-        wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
-        combineWords2 = combineWords2.concat(wordWithSpaces)
-        result = combineWords2
-        
-      })
+  });
+
+  function processLines(line) {
+    
+    const operationSplitOrCombine = line.slice(0,1)
+    const typeMethodOrClassOrVariable = line.slice(2,3)
+    const words = line.slice(4)
+    let wordsInLowerCase = words.toLowerCase()
+    let combineWords = ''
+    let result 
+    let arrayWords = words.split('')
+    let arrayWordsInLowerCase = wordsInLowerCase.split('')
+    let arrayIndex = []
+    
+    
+      function combineWordsWithFirstCharInUpperCase()
+     {
       
-  }
-  if (operationSplitOrCombine === 'S') {
-
-    switch (typeMethodOrClassOrVariable) {
+      let arrayWords = words.split(' ')
+      arrayWords.map(element => {
+        firstCharInUpperCase = element.slice(0, 1).toUpperCase()
+        restOfTheWord = element.slice(1)
+        wordInCamelCase = firstCharInUpperCase.concat(restOfTheWord)
+        combineWords = combineWords.concat(wordInCamelCase)
+        return combineWords
+      })
+    }
+  
+    function formatAsMethod() {
+      switch (typeMethodOrClassOrVariable) {
         case 'M':
-            splitWordsAndFormatToLowerCase()
-            result = result.slice(0,-2)
+          firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
+          restOfTheWord = combineWords.slice(1)
+          wordInCamelCase = firstCharInLowerCase
+            .concat(restOfTheWord)
+          result = function wordInCamelCase() {}
           break
         case 'C':
-            splitWordsAndFormatToLowerCase()
+          result = combineWords
           break
         case 'V':
-            splitWordsAndFormatToLowerCase()
-        
+          firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
+          restOfTheWord = combineWords.slice(1)
+          wordInCamelCase = firstCharInLowerCase.concat(restOfTheWord)
+          result = wordInCamelCase
           break
         default:
           console.log('invalid parameter')
           break
       }
-
-  } else if (operationSplitOrCombine === 'C') {
-    combineWordsWithFirstCharInUpperCase(words)
-    formatAsMethod(combineWords)
+      
+    }
+  
+    function turnStringInArray () {
+      for (let index = 0; index < arrayWords.length; index++) {
+          const elementWords = arrayWords[index]
+          const elementLowerCase = arrayWordsInLowerCase[index]
+          if (elementWords !== elementLowerCase) {
+            arrayIndex.push(index)
+          }
+        }
+    }
+  
+    function transformFirstCharInLowerCase() {
+  
+      verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
+      if (verifyIfFirstCharIsUpperCase !== -1) {
+        arrayIndex = arrayIndex.slice(1)
+      }
+    }
+  
+    function splitWordsAndFormatToLowerCase() {
+      let combineWords2 = ''
+      turnStringInArray()
+      arrayWordsWithSpaces = arrayWordsInLowerCase
+      transformFirstCharInLowerCase()
+  
+        arrayIndex.map(element => {
+          arrayWordsWithSpaces.splice(element, 0, ' ')
+        })
+        arrayWordsWithSpaces.map(element => {
+          firstCharInLowerCase = element.slice(0, 1).toLowerCase()
+          restOfTheWord = element.slice(1)
+          wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
+          combineWords2 = combineWords2.concat(wordWithSpaces)
+          result = combineWords2
+          
+        })
+        
+    }
+    if (operationSplitOrCombine === 'S') {
+  
+      switch (typeMethodOrClassOrVariable) {
+          case 'M':
+              splitWordsAndFormatToLowerCase()
+              result = result.slice(0,-2)
+            break
+          case 'C':
+              splitWordsAndFormatToLowerCase()
+            break
+          case 'V':
+              splitWordsAndFormatToLowerCase()
+          
+            break
+          default:
+            console.log('invalid parameter')
+            break
+        }
+  
+    } else if (operationSplitOrCombine === 'C') {
+      combineWordsWithFirstCharInUpperCase(words)
+      formatAsMethod(combineWords)
+      
+    }
+    console.log(result)
+    finalResult =   finalResult + "\n" + result
     
   }
-  console.log(result)
+  // finalResult = finalResult.replace('\n', '')
+  // console.log(finalResult)
 }
 
-const input = 'C;C;mouse pad mouse pad'
-const input2 = 'S;V;iPad'
-const input3 = 'C;M;mouse pad'
-const input4 = 'C;C;code swarm'
-const input5 = 'S;C;OrangeHighlighter'
-const input6 = 'S;M;plasticCup()'
 
-console.log(processData(input))
-console.log(processData(input2))
-console.log(processData(input3))
-console.log(processData(input4))
-console.log(processData(input5))
-console.log(processData(input6))
+const input = `S;V;iPad
+C;M;mouse pad
+C;C;code swarm
+S;C;OrangeHighlighter
+`
+processData(input)
+
+
+
+
+// Your Output (stdout)
+// i pad
+// mousePad
+// ()
+// CodeSwarm
+// orange highlighter
+// Expected Output
+
+// Download
+// i pad
+// mousePad()
+// CodeSwarm
+// orange highlighter
+// BlogScoringEnvironmentFAQAbout UsSupportCareersTerms Of ServicePrivacy PolicyRequest a Feature
 
 
 // Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
