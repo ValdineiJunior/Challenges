@@ -63,7 +63,7 @@ function processData(input) {
         restOfTheWord = element.slice(1)
         wordInCamelCase = firstCharInUpperCase.concat(restOfTheWord)
         combineWords = combineWords.concat(wordInCamelCase)
-        return combineWords
+        combineWords.trim()
       })
     }
   
@@ -74,16 +74,17 @@ function processData(input) {
           restOfTheWord = combineWords.slice(1)
           wordInCamelCase = firstCharInLowerCase
             .concat(restOfTheWord)
-          result = function wordInCamelCase() {}
+          
+          result = wordInCamelCase.trim()+'\(\)'
           break
         case 'C':
-          result = combineWords
+          result = combineWords.trim()
           break
         case 'V':
           firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
           restOfTheWord = combineWords.slice(1)
           wordInCamelCase = firstCharInLowerCase.concat(restOfTheWord)
-          result = wordInCamelCase
+          result = wordInCamelCase.trim()
           break
         default:
           console.log('invalid parameter')
@@ -162,30 +163,13 @@ function processData(input) {
 }
 
 
-const input = `S;V;iPad
-C;M;mouse pad
-C;C;code swarm
-S;C;OrangeHighlighter
+const input = `C;V;can of coke
+S;M;sweatTea()
+S;V;epsonPrinter
+C;M;santa claus
+C;C;mirror
 `
 processData(input)
-
-
-
-
-// Your Output (stdout)
-// i pad
-// mousePad
-// ()
-// CodeSwarm
-// orange highlighter
-// Expected Output
-
-// Download
-// i pad
-// mousePad()
-// CodeSwarm
-// orange highlighter
-// BlogScoringEnvironmentFAQAbout UsSupportCareersTerms Of ServicePrivacy PolicyRequest a Feature
 
 
 // Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
@@ -236,4 +220,12 @@ processData(input)
 
 // Print all information to the console using standard output (System.out.print() or System.out.println()).
 
-// Outputs must be exact (exact spaces and casing).
+// // Outputs must be exact (exact spaces and casing).
+// rstrip()
+
+// i pad
+// mousePad
+// ()
+// undefined
+// CodeSwarm
+// orange highlighter
