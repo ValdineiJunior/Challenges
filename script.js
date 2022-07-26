@@ -1,231 +1,87 @@
-function processData(input) {
-  finalResult = ''
-  let arrayToBreakeLine = [0]
-  function getIndexForBreakeTextInLines(input) {
+function solution(sequence) {
+    let amountElementToRemove = 0
 
-    let indexSToBreakLine = input.indexOf('\nS;')
-    let indexCToBreakLine = input.indexOf('\nC;')
-  
-    while ((indexSToBreakLine) !== -1) {
-      arrayToBreakeLine.push(indexSToBreakLine)
-      indexSToBreakLine = input.indexOf('\nS;', indexSToBreakLine + 1)
+    function removeElement(index) {
+        sequence.splice(index,1)
     }
 
-    while ((indexCToBreakLine) !== -1) {
-      arrayToBreakeLine.push(indexCToBreakLine)
-      indexCToBreakLine = input.indexOf('\nC;', indexCToBreakLine + 1)
+    function compareEqualsElements() {
+        for (let index = sequence.length-1; index > 0; index--) {
+            console.log(index)
+            const element = sequence[index];
+            let indexOf = 0
+            for (index; index > 0; index--) {
+                sub--
+                const previewsElementToCompare = sequence[index-sub]
+                console.log(indexOf)
+                if (element == previewsElementToCompare) {
+                    console.log(element)
+                    console.log(previewsElementToCompare)
+                    amountElementToRemove = amountElementToRemove + 1
+                    if (amountElementToRemove == 1) {
+                        removeElement(index-1)
+                        break
+                    }
+                }
+            }            
+        }            
     }
 
-    arrayToBreakeLine.sort((a,b) => a-b)
-  }
-  getIndexForBreakeTextInLines(input)
+    function compareElements() {
+        for (let index = 0; index < sequence.length-1; index++) {
+            const element = sequence[index];
+            const nextElementToCompare = sequence[index+1]
 
-  let arraywithLines = []
-
-  function breakeTextInLines(arrayToBreakeLine) {
-    
-    for (let index = 0; index < arrayToBreakeLine.length; index++) {
-      beginningSlice = arrayToBreakeLine[index]
-      endSlice = arrayToBreakeLine[index + 1]
-      line = (input.slice(beginningSlice,endSlice))
-      line = line.replace('\n','')
-      line = line.replace('\n','')
-      arraywithLines.push(line)
+            if (element >= nextElementToCompare) {
+                amountElementToRemove = amountElementToRemove + 1
+                if (amountElementToRemove == 1) {
+                    removeElement(index)
+                    break
+                }
+            }
+        }            
     }
-  }
-  breakeTextInLines(arrayToBreakeLine)
-
-  arraywithLines.forEach(line => {
-    
-    processLines(line)
-
-  });
-
-  function processLines(line) {
-    
-    const operationSplitOrCombine = line.slice(0,1)
-    const typeMethodOrClassOrVariable = line.slice(2,3)
-    const words = line.slice(4)
-    let wordsInLowerCase = words.toLowerCase()
-    let combineWords = ''
-    let result 
-    let arrayWords = words.split('')
-    let arrayWordsInLowerCase = wordsInLowerCase.split('')
-    let arrayIndex = []
-    
-    
-      function combineWordsWithFirstCharInUpperCase()
-     {
-      
-      let arrayWords = words.split(' ')
-      arrayWords.map(element => {
-        firstCharInUpperCase = element.slice(0, 1).toUpperCase()
-        restOfTheWord = element.slice(1)
-        wordInCamelCase = firstCharInUpperCase.concat(restOfTheWord)
-        combineWords = combineWords.concat(wordInCamelCase)
-        combineWords.trim()
-      })
-    }
-  
-    function formatAsMethod() {
-      switch (typeMethodOrClassOrVariable) {
-        case 'M':
-          firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
-          restOfTheWord = combineWords.slice(1)
-          wordInCamelCase = firstCharInLowerCase
-            .concat(restOfTheWord)
-          
-          result = wordInCamelCase.trim()+'\(\)'
-          break
-        case 'C':
-          result = combineWords.trim()
-          break
-        case 'V':
-          firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
-          restOfTheWord = combineWords.slice(1)
-          wordInCamelCase = firstCharInLowerCase.concat(restOfTheWord)
-          result = wordInCamelCase.trim()
-          break
-        default:
-          console.log('invalid parameter')
-          break
-      }
-      
-    }
-  
-    function turnStringInArray () {
-      for (let index = 0; index < arrayWords.length; index++) {
-          const elementWords = arrayWords[index]
-          const elementLowerCase = arrayWordsInLowerCase[index]
-          if (elementWords !== elementLowerCase) {
-            arrayIndex.push(index)
-          }
-        }
-    }
-  
-    function transformFirstCharInLowerCase() {
-  
-      verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
-      if (verifyIfFirstCharIsUpperCase !== -1) {
-        arrayIndex = arrayIndex.slice(1)
-      }
-    }
-  
-    function splitWordsAndFormatToLowerCase() {
-      let combineWords2 = ''
-      turnStringInArray()
-      arrayWordsWithSpaces = arrayWordsInLowerCase
-      transformFirstCharInLowerCase()
-  
-        arrayIndex.map(element => {
-          arrayWordsWithSpaces.splice(element, 0, ' ')
-        })
-        arrayWordsWithSpaces.map(element => {
-          firstCharInLowerCase = element.slice(0, 1).toLowerCase()
-          restOfTheWord = element.slice(1)
-          wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
-          combineWords2 = combineWords2.concat(wordWithSpaces)
-          result = combineWords2
-          
-        })
-        
-    }
-    if (operationSplitOrCombine === 'S') {
-  
-      switch (typeMethodOrClassOrVariable) {
-          case 'M':
-              splitWordsAndFormatToLowerCase()
-              result = result.slice(0,-2)
-            break
-          case 'C':
-              splitWordsAndFormatToLowerCase()
-            break
-          case 'V':
-              splitWordsAndFormatToLowerCase()
-          
-            break
-          default:
-            console.log('invalid parameter')
-            break
-        }
-  
-    } else if (operationSplitOrCombine === 'C') {
-      combineWordsWithFirstCharInUpperCase(words)
-      formatAsMethod(combineWords)
-      
-    }
-    console.log(result)
-    finalResult =   finalResult + "\n" + result
-    
-  }
-  // finalResult = finalResult.replace('\n', '')
-  // console.log(finalResult)
+    compareEqualsElements()
+    compareElements()
+    compareElements()
+    isStrictlyIncreasing = amountElementToRemove <= 1
+    console.log(sequence)
+    return isStrictlyIncreasing
 }
 
+sequence = [1, 2, 3, 4, 3, 6]
+solution(sequence)
 
-const input = `C;V;can of coke
-S;M;sweatTea()
-S;V;epsonPrinter
-C;M;santa claus
-C;C;mirror
-`
-processData(input)
+// Codewriting
 
+// 300
 
-// Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
+// Given a sequence of integers as an array, determine whether it is possible to obtain a strictly increasing sequence by removing no more than one element from the array.
 
-// Your task is to write a program that creates or splits Camel Case variable, method, and class names.
+// Note: sequence a0, a1, ..., an is considered to be a strictly increasing if a0 < a1 < ... < an. Sequence containing only one element is also considered to be strictly increasing.
 
-// Input Format
+// Example
 
-// Each line of the input file will begin with an operation (S or C) followed by a semi-colon followed by M, C, or V followed by a semi-colon followed by the words you'll need to operate on.
-// The operation will either be S (split) or C (combine)
-// M indicates method, C indicates class, and V indicates variable
-// In the case of a split operation, the words will be a camel case method, class or variable name that you need to split into a space-delimited list of words starting with a lowercase letter.
-// In the case of a combine operation, the words will be a space-delimited list of words starting with lowercase letters that you need to combine into the appropriate camel case String. Methods should end with an empty set of parentheses to differentiate them from variable names.
-// Output Format
+// For sequence = [1, 3, 2, 1], the output should be
+// solution(sequence) = false.
 
-// For each input line, your program should print either the space-delimited list of words (in the case of a split operation) or the appropriate camel case string (in the case of a combine operation).
-// Sample Input
+// There is no one element in this array that can be removed in order to get a strictly increasing sequence.
 
-// S;M;plasticCup()
+// For sequence = [1, 3, 2], the output should be
+// solution(sequence) = true.
 
-// C;V;mobile phone
+// You can remove 3 from the array to get the strictly increasing sequence [1, 2]. Alternately, you can remove 2 to get the strictly increasing sequence [1, 3].
 
-// C;C;coffee machine
+// Input/Output
 
-// S;C;LargeSoftwareBook
+// [execution time limit] 4 seconds (js)
 
-// C;M;white sheet of paper
+// [input] array.integer sequence
 
-// S;V;pictureFrame
+// Guaranteed constraints:
+// 2 ≤ sequence.length ≤ 105,
+// -105 ≤ sequence[i] ≤ 105.
 
-// Sample Output
+// [output] boolean
 
-// plastic cup
-
-// mobilePhone
-
-// CoffeeMachine
-
-// large software book
-
-// whiteSheetOfPaper()
-
-// picture frame
-
-// Explanation
-
-// Use Scanner to read in all information as if it were coming from the keyboard.
-
-// Print all information to the console using standard output (System.out.print() or System.out.println()).
-
-// // Outputs must be exact (exact spaces and casing).
-// rstrip()
-
-// i pad
-// mousePad
-// ()
-// undefined
-// CodeSwarm
-// orange highlighter
+// Return true if it is possible to remove one element from the array in order to get a strictly increasing sequence, otherwise return false.
