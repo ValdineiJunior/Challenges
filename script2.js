@@ -4,27 +4,28 @@ function solution(sequence) {
     function removeElement(index) {
         sequence.splice(index,1)
     }
+    
+    function decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual) {
+        elementInIndex = sequence[index]
+        elementBeforeIndex = sequence[index-1]
+        console.log(elementBeforeIndex)
+        if(elementBeforeIndex > elementInIndex) {
+            removeElement(index)    
+        } else {
+            removeElement(indexOfFirstEqual)
+        }
+    }
 
-    function compareEqualsElements() {
-        for (let index = sequence.length-1; index > 0; index--) {
-            console.log(index)
-            const element = sequence[index];
-            let indexOf = 0
-            for (index; index > 0; index--) {
-                sub--
-                const previewsElementToCompare = sequence[index-sub]
-                console.log(indexOf)
-                if (element == previewsElementToCompare) {
-                    console.log(element)
-                    console.log(previewsElementToCompare)
-                    amountElementToRemove = amountElementToRemove + 1
-                    if (amountElementToRemove == 1) {
-                        removeElement(index-1)
-                        break
-                    }
-                }
-            }            
-        }            
+    function comparingRepeatedElements() {
+        sequence.forEach((element, index) => {
+            let indexOfFirstEqual = sequence.indexOf(element)
+            if (indexOfFirstEqual != index) {
+                amountElementToRemove++
+                decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
+
+                
+            }
+        });
     }
 
     function compareElements() {
@@ -33,7 +34,7 @@ function solution(sequence) {
             const nextElementToCompare = sequence[index+1]
 
             if (element >= nextElementToCompare) {
-                amountElementToRemove = amountElementToRemove + 1
+                amountElementToRemove++
                 if (amountElementToRemove == 1) {
                     removeElement(index)
                     break
@@ -41,7 +42,7 @@ function solution(sequence) {
             }
         }            
     }
-    compareEqualsElements()
+    comparingRepeatedElements()
     compareElements()
     compareElements()
     isStrictlyIncreasing = amountElementToRemove <= 1
@@ -49,7 +50,7 @@ function solution(sequence) {
     return isStrictlyIncreasing
 }
 
-sequence = [1, 2, 3, 4, 3, 6]
+sequence = [1, 2, 5, 3, 5]
 solution(sequence)
 
 // Codewriting

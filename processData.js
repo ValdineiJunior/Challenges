@@ -1,29 +1,20 @@
 function processData(input) {
-  finalResult = ''
-  let arrayToBreakeLine = [0]
-  function getIndexForBreakeTextInLines(input) {
-
-    let indexSToBreakLine = input.indexOf('\nS;')
-    let indexCToBreakLine = input.indexOf('\nC;')
   
-    while ((indexSToBreakLine) !== -1) {
-      arrayToBreakeLine.push(indexSToBreakLine)
-      indexSToBreakLine = input.indexOf('\nS;', indexSToBreakLine + 1)
+  let IndextoBreakeLines = [0]
+  function getIndextoBreakeLines(breake) {
+    let indexToBreakLine = input.indexOf(breake)
+    while ((indexToBreakLine) !== -1) {
+      IndextoBreakeLines.push(indexToBreakLine)
+      indexToBreakLine = input.indexOf(breake, indexToBreakLine + 1)
     }
-
-    while ((indexCToBreakLine) !== -1) {
-      arrayToBreakeLine.push(indexCToBreakLine)
-      indexCToBreakLine = input.indexOf('\nC;', indexCToBreakLine + 1)
-    }
-
-    arrayToBreakeLine.sort((a,b) => a-b)
   }
-  getIndexForBreakeTextInLines(input)
+  getIndextoBreakeLines('\nS;')
+  getIndextoBreakeLines('\nC;')
+  IndextoBreakeLines.sort((a,b) => a-b)
 
+  finalResult = ''
   let arraywithLines = []
-
   function breakeTextInLines(arrayToBreakeLine) {
-    
     for (let index = 0; index < arrayToBreakeLine.length; index++) {
       beginningSlice = arrayToBreakeLine[index]
       endSlice = arrayToBreakeLine[index + 1]
@@ -33,30 +24,18 @@ function processData(input) {
       arraywithLines.push(line)
     }
   }
-  breakeTextInLines(arrayToBreakeLine)
+  breakeTextInLines(IndextoBreakeLines)
 
   arraywithLines.forEach(line => {
-    
     processLines(line)
-
   });
-
+  
   function processLines(line) {
-    
-    const operationSplitOrCombine = line.slice(0,1)
-    const typeMethodOrClassOrVariable = line.slice(2,3)
     const words = line.slice(4)
-    let wordsInLowerCase = words.toLowerCase()
     let combineWords = ''
     let result 
     let arrayWords = words.split('')
-    let arrayWordsInLowerCase = wordsInLowerCase.split('')
-    let arrayIndex = []
-    
-    
-      function combineWordsWithFirstCharInUpperCase()
-     {
-      
+    function combineWordsWithFirstCharInUpperCase() {
       let arrayWords = words.split(' ')
       arrayWords.map(element => {
         firstCharInUpperCase = element.slice(0, 1).toUpperCase()
@@ -72,9 +51,7 @@ function processData(input) {
         case 'M':
           firstCharInLowerCase = combineWords.slice(0, 1).toLowerCase()
           restOfTheWord = combineWords.slice(1)
-          wordInCamelCase = firstCharInLowerCase
-            .concat(restOfTheWord)
-          
+          wordInCamelCase = firstCharInLowerCase.concat(restOfTheWord)
           result = wordInCamelCase.trim()+'\(\)'
           break
         case 'C':
@@ -89,22 +66,23 @@ function processData(input) {
         default:
           console.log('invalid parameter')
           break
-      }
-      
+      }     
     }
-  
+    
+    let arrayIndex = []
+    let wordsInLowerCase = words.toLowerCase()
+    let arrayWordsInLowerCase = wordsInLowerCase.split('')
     function turnStringInArray () {
       for (let index = 0; index < arrayWords.length; index++) {
-          const elementWords = arrayWords[index]
-          const elementLowerCase = arrayWordsInLowerCase[index]
-          if (elementWords !== elementLowerCase) {
-            arrayIndex.push(index)
-          }
+        const elementWords = arrayWords[index]
+        const elementLowerCase = arrayWordsInLowerCase[index]
+        if (elementWords !== elementLowerCase) {
+          arrayIndex.push(index)
         }
+      }
     }
   
     function transformFirstCharInLowerCase() {
-  
       verifyIfFirstCharIsUpperCase = arrayIndex.findIndex(element => element === 0)  
       if (verifyIfFirstCharIsUpperCase !== -1) {
         arrayIndex = arrayIndex.slice(1)
@@ -116,50 +94,42 @@ function processData(input) {
       turnStringInArray()
       arrayWordsWithSpaces = arrayWordsInLowerCase
       transformFirstCharInLowerCase()
-  
-        arrayIndex.map(element => {
-          arrayWordsWithSpaces.splice(element, 0, ' ')
-        })
-        arrayWordsWithSpaces.map(element => {
-          firstCharInLowerCase = element.slice(0, 1).toLowerCase()
-          restOfTheWord = element.slice(1)
-          wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
-          combineWords2 = combineWords2.concat(wordWithSpaces)
-          result = combineWords2
-          
-        })
-        
+      arrayIndex.map(element => {
+        arrayWordsWithSpaces.splice(element, 0, ' ')
+      })
+      arrayWordsWithSpaces.map(element => {
+        firstCharInLowerCase = element.slice(0, 1).toLowerCase()
+        restOfTheWord = element.slice(1)
+        wordWithSpaces = firstCharInLowerCase.concat(restOfTheWord)
+        combineWords2 = combineWords2.concat(wordWithSpaces)
+        result = combineWords2   
+      })      
     }
+    
+    const operationSplitOrCombine = line.slice(0,1)
+    const typeMethodOrClassOrVariable = line.slice(2,3)
     if (operationSplitOrCombine === 'S') {
-  
       switch (typeMethodOrClassOrVariable) {
-          case 'M':
-              splitWordsAndFormatToLowerCase()
-              result = result.slice(0,-2)
-            break
-          case 'C':
-              splitWordsAndFormatToLowerCase()
-            break
-          case 'V':
-              splitWordsAndFormatToLowerCase()
-          
-            break
-          default:
-            console.log('invalid parameter')
-            break
-        }
-  
+        case 'M':
+          splitWordsAndFormatToLowerCase()
+          result = result.slice(0,-2)
+          break
+        case 'C':
+          splitWordsAndFormatToLowerCase()
+          break
+        case 'V':
+          splitWordsAndFormatToLowerCase()
+          break
+        default:
+          console.log('invalid parameter')
+          break
+      }
     } else if (operationSplitOrCombine === 'C') {
       combineWordsWithFirstCharInUpperCase(words)
-      formatAsMethod(combineWords)
-      
+      formatAsMethod(combineWords)  
     }
     console.log(result)
-    finalResult =   finalResult + "\n" + result
-    
   }
-  // finalResult = finalResult.replace('\n', '')
-  // console.log(finalResult)
 }
 
 
@@ -170,6 +140,7 @@ C;M;santa claus
 C;C;mirror
 `
 processData(input)
+
 
 
 // Camel Case is a naming style common in many programming languages. In Java, method and variable names typically start with a lowercase letter, with all subsequent words starting with a capital letter (example: startThread). Names of classes follow the same pattern, except that they start with a capital letter (example: BlueCar).
