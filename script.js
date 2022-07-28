@@ -1,56 +1,63 @@
 function solution(sequence) {
-    let amountElementToRemove = 0
-
-    function removeElement(index) {
-        sequence.splice(index,1)
+    function comparingRepeatedElements() {
+        for (let index = sequence.length-1; index > 0; index--) {
+            let lastElementEqual = sequence.pop()
+            let firstElemetEqual = sequence.find(element => element == lastElementEqual)
+            if (lastElementEqual == firstElemetEqual) {
+                let indexOfFirstEqual = sequence.indexOf(lastElementEqual)
+                amountElementToRemove++
+                if (amountElementToRemove > 1) {
+                    break
+                }
+                decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
+            }         
+        }
     }
-    
     function decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual) {
         elementInIndex = sequence[index]
         elementBeforeIndex = sequence[index-1]
-        console.log(elementBeforeIndex)
         if(elementBeforeIndex > elementInIndex) {
             removeElement(index)    
         } else {
             removeElement(indexOfFirstEqual)
         }
     }
-
-    function comparingRepeatedElements() {
-        sequence.forEach((element, index) => {
-            let indexOfFirstEqual = sequence.indexOf(element)
-            if (indexOfFirstEqual != index) {
-                amountElementToRemove++
-                decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
-
-                
-            }
-        });
+    function removeElement(index) {
+        sequence.splice(index,1)
     }
-
+    let amountElementToRemove = 0
+    let elementToCut = 0
     function compareElements() {
         for (let index = 0; index < sequence.length-1; index++) {
             const element = sequence[index];
             const nextElementToCompare = sequence[index+1]
-
             if (element >= nextElementToCompare) {
                 amountElementToRemove++
-                if (amountElementToRemove == 1) {
-                    removeElement(index)
+                if (amountElementToRemove > 1) {
                     break
+                }
+                if (amountElementToRemove == 1) {
+                   elementToCut = index 
                 }
             }
         }            
     }
-    comparingRepeatedElements()
     compareElements()
-    compareElements()
+    if (amountElementToRemove <= 1) {
+        amountElementToRemove = 0
+        comparingRepeatedElements()
+    } if (amountElementToRemove <= 1) {
+        amountElementToRemove = 0
+        removeElement(elementToCut)
+        compareElements()
+        amountElementToRemove++
+    }
     isStrictlyIncreasing = amountElementToRemove <= 1
-    console.log(sequence)
+    console.log(isStrictlyIncreasing)
     return isStrictlyIncreasing
 }
 
-sequence = [1, 2, 5, 3, 5]
+sequence = [ 1, 2, 1, 2]
 solution(sequence)
 
 // Codewriting
