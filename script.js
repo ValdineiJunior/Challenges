@@ -1,64 +1,101 @@
 function solution(sequence) {
-    function comparingRepeatedElements() {
-        for (let index = sequence.length-1; index > 0; index--) {
-            let lastElementEqual = sequence.pop()
-            let firstElemetEqual = sequence.find(element => element == lastElementEqual)
-            if (lastElementEqual == firstElemetEqual) {
-                let indexOfFirstEqual = sequence.indexOf(lastElementEqual)
-                amountElementToRemove++
-                if (amountElementToRemove > 1) {
-                    break
-                }
-                decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
-            }         
-        }
-    }
-    function decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual) {
-        elementInIndex = sequence[index]
-        elementBeforeIndex = sequence[index-1]
-        if(elementBeforeIndex > elementInIndex) {
-            removeElement(index)    
+    let sequenceWithoutEnd = [...sequence]
+    for (let index = sequence.length-1; index > 0; index--) {
+        const element = sequence[index];
+        const previousElementToCompare = sequence[index-1]
+        if (element <= previousElementToCompare) {
+            break
         } else {
-            removeElement(indexOfFirstEqual)
+            sequenceWithoutEnd.pop()
+        }       
+    }
+    let sequenceWithoutStart = [...sequenceWithoutEnd] 
+    for (let index = 0; index < sequenceWithoutEnd.length-1; index++) {
+        const element = sequenceWithoutEnd[index];
+        const nextElementToCompare = sequenceWithoutEnd[index+1]
+        if (element >= nextElementToCompare) {
+            break
+        } else {
+            sequenceWithoutStart.shift()
+        }       
+    }
+    let sequenceFinal = [...sequenceWithoutStart]
+    console.log(sequenceFinal)
+    let counter = 0
+
+    for (let index = 0; index < sequenceFinal.length-1; index++) {
+        const element = sequenceFinal[index];
+        const nextElementToCompare = sequenceFinal[index+1]
+        if (element >= nextElementToCompare) {
+            counter++
         }
+        
     }
-    function removeElement(index) {
-        sequence.splice(index,1)
-    }
-    let amountElementToRemove = 0
-    let elementToCut = 0
-    function compareElements() {
-        for (let index = 0; index < sequence.length-1; index++) {
-            const element = sequence[index];
-            const nextElementToCompare = sequence[index+1]
-            if (element >= nextElementToCompare) {
-                amountElementToRemove++
-                if (amountElementToRemove > 1) {
-                    break
-                }
-                if (amountElementToRemove == 1) {
-                   elementToCut = index 
-                }
-            }
-        }            
-    }
-    compareElements()
-    if (amountElementToRemove <= 1) {
-        amountElementToRemove = 0
-        comparingRepeatedElements()
-    } if (amountElementToRemove <= 1) {
-        amountElementToRemove = 0
-        removeElement(elementToCut)
-        compareElements()
-        amountElementToRemove++
-    }
-    isStrictlyIncreasing = amountElementToRemove <= 1
-    console.log(isStrictlyIncreasing)
-    return isStrictlyIncreasing
+    result = counter >= 1
+    return result
 }
 
-sequence = [ 1, 2, 1, 2]
+
+sequence = [3, 4, 5, 8, 10, 20, 15, 16 ,17 ,18 ,21 ]
 solution(sequence)
+
+// function comparingRepeatedElements() {
+//     for (let index = sequence.length-1; index > 0; index--) {
+//         let lastElementEqual = sequence.pop()
+//         let firstElemetEqual = sequence.find(element => element == lastElementEqual)
+//         if (lastElementEqual == firstElemetEqual) {
+//             let indexOfFirstEqual = sequence.indexOf(lastElementEqual)
+//             amountElementToRemove++
+//             if (amountElementToRemove > 1) {
+//                 break
+//             }
+//             decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
+//         }         
+//     }
+// }
+// function decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual) {
+//     elementInIndex = sequence[index]
+//     elementBeforeIndex = sequence[index-1]
+//     if(elementBeforeIndex > elementInIndex) {
+//         removeElement(index)    
+//     } else {
+//         removeElement(indexOfFirstEqual)
+//     }
+// }
+// function removeElement(index) {
+//     sequence.splice(index,1)
+// }
+// let amountElementToRemove = 0
+// let elementToCut = 0
+// function compareElements() {
+//     for (let index = 0; index < sequence.length-1; index++) {
+//         const element = sequence[index];
+//         const nextElementToCompare = sequence[index+1]
+//         if (element >= nextElementToCompare) {
+//             amountElementToRemove++
+//             if (amountElementToRemove > 1) {
+//                 break
+//             }
+//             if (amountElementToRemove == 1) {
+//                elementToCut = index 
+//             }
+//         }
+//     }            
+// }
+// compareElements()
+// if (amountElementToRemove <= 1) {
+//     amountElementToRemove = 0
+//     comparingRepeatedElements()
+// } if (amountElementToRemove <= 1) {
+//     amountElementToRemove = 0
+//     removeElement(elementToCut)
+//     compareElements()
+//     amountElementToRemove++
+// }
+// isStrictlyIncreasing = amountElementToRemove <= 1
+// console.log(isStrictlyIncreasing)
+// return isStrictlyIncreasing
+// }
 
 // Codewriting
 
