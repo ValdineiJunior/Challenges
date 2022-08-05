@@ -1,42 +1,81 @@
 function solution(sequence) {
-    let sequenceWithoutEnd = [...sequence]
-    for (let index = sequence.length-1; index > 0; index--) {
-        const element = sequence[index];
-        const previousElementToCompare = sequence[index-1]
-        if (element <= previousElementToCompare) {
-            break
-        } else {
-            sequenceWithoutEnd.pop()
-        }       
-    }
-    let sequenceWithoutStart = [...sequenceWithoutEnd] 
-    for (let index = 0; index < sequenceWithoutEnd.length-1; index++) {
-        const element = sequenceWithoutEnd[index];
-        const nextElementToCompare = sequenceWithoutEnd[index+1]
-        if (element >= nextElementToCompare) {
-            break
-        } else {
-            sequenceWithoutStart.shift()
-        }       
-    }
-    let sequenceFinal = [...sequenceWithoutStart]
-    console.log(sequenceFinal)
-    let counter = 0
-
-    for (let index = 0; index < sequenceFinal.length-1; index++) {
-        const element = sequenceFinal[index];
-        const nextElementToCompare = sequenceFinal[index+1]
-        if (element >= nextElementToCompare) {
-            counter++
+    result = false
+    function cutEnd(sequence) {
+        let modifiedSequence = [...sequence]
+        for (let index = sequence.length-1; index > 0; index--) {
+            const element = sequence[index];
+            const previousElementToCompare = sequence[index-1]
+            if (element <= previousElementToCompare) {
+                break
+            } else {
+                modifiedSequence.pop()
+            }       
         }
-        
+        return modifiedSequence
     }
-    result = counter >= 1
+    
+
+    function removeElementOfTheEnd(sequence) {
+        let element = sequence[sequence.length-1]
+        sequence.pop()
+        sequence.pop()
+        sequence.push(element)
+    }
+    
+
+    function cutStart(sequence) {
+        let modifiedSequence = [...sequence]
+
+        for (let index = 0; index < sequence.length-1; index++) {
+            const element = sequence[index];
+            const nextElementToCompare = sequence[index+1]
+            if (element >= nextElementToCompare) {
+                break
+            } else {
+                modifiedSequence.shift()
+            }       
+        }
+        return modifiedSequence
+    }
+  
+
+    function removeElementOfTheStart(sequence) {
+        let element = sequence[0]
+        sequence.shift()
+        sequence.shift()
+        sequence.unshift(element)
+    }
+
+    let sequenceWithoutEnd = cutEnd(sequence)
+    console.log(sequenceWithoutEnd)
+    removeElementOfTheEnd(sequenceWithoutEnd)
+
+    let sequenceWithoutStart = cutStart(sequenceWithoutEnd)
+    
+    let sequenceFinal = [...sequenceWithoutStart]
+    
+    if (sequenceFinal.length <= 1) {
+        result = true
+        return result
+    }
+
+    sequenceWithoutStart = cutStart(sequence)
+    removeElementOfTheStart(sequenceWithoutStart)
+
+    sequenceWithoutEnd = cutEnd(sequenceWithoutStart)
+
+    sequenceFinal = [...sequenceWithoutEnd]
+    if (sequenceFinal.length <= 1) {
+        result = true
+        return result
+    }
+
+    console.log(result)
     return result
 }
 
 
-sequence = [3, 4, 5, 8, 10, 20, 15, 16 ,17 ,18 ,21 ]
+sequence = [3, 5, 67, 98, 3]
 solution(sequence)
 
 // function comparingRepeatedElements() {
