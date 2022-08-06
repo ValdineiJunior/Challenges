@@ -1,84 +1,78 @@
 function solution(sequence) {
-
-    result = false
-    
-    ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning()
-
-    if (result = true) {
-        return result
-    }
-    
-    ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd()
-    
+  result = false
+  ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning()
+  if (result == true) {
     return result
+  }
+  ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd()
+  return result
 
-    function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning() {
-        let sequenceWithoutEnd = cutTheCorrectElementsFromTheEndOfTheSequence(sequence)
-        removePenultimateElementOfArray(sequenceWithoutEnd)
-        let sequenceWithoutStart = cutTheCorrectElementsFromTheBeginningOfTheSequence(sequenceWithoutEnd)
-        checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutStart)
+  function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning() {
+    let sequenceWithoutEnd =
+      cutTheCorrectElementsFromTheEndOfTheSequence(sequence)
+    removePenultimateElementOfArray(sequenceWithoutEnd)
+    let sequenceWithoutStart =
+      cutTheCorrectElementsFromTheBeginningOfTheSequence(sequenceWithoutEnd)
+    checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutStart)
+  }
+
+  function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd() {
+    sequenceWithoutStart =
+      cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence)
+    removeTheSecondElementFromTheArray(sequenceWithoutStart)
+    sequenceWithoutEnd =
+      cutTheCorrectElementsFromTheEndOfTheSequence(sequenceWithoutStart)
+    checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutEnd)
+  }
+
+  function cutTheCorrectElementsFromTheEndOfTheSequence(sequence) {
+    let modifiedSequence = [...sequence]
+    for (let index = sequence.length - 1; index > 0; index--) {
+      const element = sequence[index]
+      const previousElementToCompare = sequence[index - 1]
+      if (element <= previousElementToCompare) {
+        break
+      } else {
+        modifiedSequence.pop()
+      }
     }
+    return modifiedSequence
+  }
 
-    function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd() {
-        sequenceWithoutStart = cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence)
-        removeTheSecondElementFromTheArray(sequenceWithoutStart)
-        sequenceWithoutEnd = cutTheCorrectElementsFromTheEndOfTheSequence(sequenceWithoutStart)
-        checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutEnd)
+  function removePenultimateElementOfArray(sequence) {
+    let element = sequence[sequence.length - 1]
+    sequence.pop()
+    sequence.pop()
+    sequence.push(element)
+  }
+
+  function cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence) {
+    let modifiedSequence = [...sequence]
+    for (let index = 0; index < sequence.length - 1; index++) {
+      const element = sequence[index]
+      const nextElementToCompare = sequence[index + 1]
+      if (element >= nextElementToCompare) {
+        break
+      } else {
+        modifiedSequence.shift()
+      }
     }
+    return modifiedSequence
+  }
 
-    function checkIfThereIsASingleElementLeftInTheArray(sequence) {
-        if (sequence.length <= 1) {
-            result = true
-        }
+  function removeTheSecondElementFromTheArray(sequence) {
+    let element = sequence[0]
+    sequence.shift()
+    sequence.shift()
+    sequence.unshift(element)
+  }
+
+  function checkIfThereIsASingleElementLeftInTheArray(sequence) {
+    if (sequence.length <= 1) {
+      result = true
     }
-    function cutTheCorrectElementsFromTheEndOfTheSequence(sequence) {
-        let modifiedSequence = [...sequence]
-        for (let index = sequence.length-1; index > 0; index--) {
-            const element = sequence[index];
-            const previousElementToCompare = sequence[index-1]
-            if (element <= previousElementToCompare) {
-                break
-            } else {
-                modifiedSequence.pop()
-            }       
-        }
-        return modifiedSequence
-    }
-    
-
-    function removePenultimateElementOfArray(sequence) {
-        let element = sequence[sequence.length-1]
-        sequence.pop()
-        sequence.pop()
-        sequence.push(element)
-    }
-    
-
-    function cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence) {
-        let modifiedSequence = [...sequence]
-
-        for (let index = 0; index < sequence.length-1; index++) {
-            const element = sequence[index];
-            const nextElementToCompare = sequence[index+1]
-            if (element >= nextElementToCompare) {
-                break
-            } else {
-                modifiedSequence.shift()
-            }       
-        }
-        return modifiedSequence
-    }
-  
-
-    function removeTheSecondElementFromTheArray(sequence) {
-        let element = sequence[0]
-        sequence.shift()
-        sequence.shift()
-        sequence.unshift(element)
-    }
-
+  }
 }
-
 
 sequence = [3, 5, 67, 98, 3]
 solution(sequence)
@@ -94,14 +88,14 @@ solution(sequence)
 //                 break
 //             }
 //             decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual)
-//         }         
+//         }
 //     }
 // }
 // function decidingWhichOfTheDuplicatesToRemove(index, indexOfFirstEqual) {
 //     elementInIndex = sequence[index]
 //     elementBeforeIndex = sequence[index-1]
 //     if(elementBeforeIndex > elementInIndex) {
-//         removeElement(index)    
+//         removeElement(index)
 //     } else {
 //         removeElement(indexOfFirstEqual)
 //     }
@@ -121,10 +115,10 @@ solution(sequence)
 //                 break
 //             }
 //             if (amountElementToRemove == 1) {
-//                elementToCut = index 
+//                elementToCut = index
 //             }
 //         }
-//     }            
+//     }
 // }
 // compareElements()
 // if (amountElementToRemove <= 1) {
