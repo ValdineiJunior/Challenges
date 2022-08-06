@@ -1,6 +1,37 @@
 function solution(sequence) {
+
     result = false
-    function cutEnd(sequence) {
+    
+    ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning()
+
+    if (result = true) {
+        return result
+    }
+    
+    ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd()
+    
+    return result
+
+    function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning() {
+        let sequenceWithoutEnd = cutTheCorrectElementsFromTheEndOfTheSequence(sequence)
+        removePenultimateElementOfArray(sequenceWithoutEnd)
+        let sequenceWithoutStart = cutTheCorrectElementsFromTheBeginningOfTheSequence(sequenceWithoutEnd)
+        checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutStart)
+    }
+
+    function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd() {
+        sequenceWithoutStart = cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence)
+        removeTheSecondElementFromTheArray(sequenceWithoutStart)
+        sequenceWithoutEnd = cutTheCorrectElementsFromTheEndOfTheSequence(sequenceWithoutStart)
+        checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutEnd)
+    }
+
+    function checkIfThereIsASingleElementLeftInTheArray(sequence) {
+        if (sequence.length <= 1) {
+            result = true
+        }
+    }
+    function cutTheCorrectElementsFromTheEndOfTheSequence(sequence) {
         let modifiedSequence = [...sequence]
         for (let index = sequence.length-1; index > 0; index--) {
             const element = sequence[index];
@@ -15,7 +46,7 @@ function solution(sequence) {
     }
     
 
-    function removeElementOfTheEnd(sequence) {
+    function removePenultimateElementOfArray(sequence) {
         let element = sequence[sequence.length-1]
         sequence.pop()
         sequence.pop()
@@ -23,7 +54,7 @@ function solution(sequence) {
     }
     
 
-    function cutStart(sequence) {
+    function cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence) {
         let modifiedSequence = [...sequence]
 
         for (let index = 0; index < sequence.length-1; index++) {
@@ -39,39 +70,13 @@ function solution(sequence) {
     }
   
 
-    function removeElementOfTheStart(sequence) {
+    function removeTheSecondElementFromTheArray(sequence) {
         let element = sequence[0]
         sequence.shift()
         sequence.shift()
         sequence.unshift(element)
     }
 
-    let sequenceWithoutEnd = cutEnd(sequence)
-    console.log(sequenceWithoutEnd)
-    removeElementOfTheEnd(sequenceWithoutEnd)
-
-    let sequenceWithoutStart = cutStart(sequenceWithoutEnd)
-    
-    let sequenceFinal = [...sequenceWithoutStart]
-    
-    if (sequenceFinal.length <= 1) {
-        result = true
-        return result
-    }
-
-    sequenceWithoutStart = cutStart(sequence)
-    removeElementOfTheStart(sequenceWithoutStart)
-
-    sequenceWithoutEnd = cutEnd(sequenceWithoutStart)
-
-    sequenceFinal = [...sequenceWithoutEnd]
-    if (sequenceFinal.length <= 1) {
-        result = true
-        return result
-    }
-
-    console.log(result)
-    return result
 }
 
 
