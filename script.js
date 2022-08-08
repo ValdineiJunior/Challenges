@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function solution(matrix) {
     let result = 0
     console.log(matrix.length)
@@ -26,6 +27,86 @@ const matrix = [[0, 1, 1, 2],
                 [2, 0, 3, 3]]
 
 solution(matrix)
+=======
+function solution(sequence) {
+  result = false
+  ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning()
+  if (result == true) {
+    return result
+  }
+  ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd()
+  return result
+
+  function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheEndToTheBeginning() {
+    let sequenceWithoutEnd =
+      cutTheCorrectElementsFromTheEndOfTheSequence(sequence)
+    removePenultimateElementOfArray(sequenceWithoutEnd)
+    let sequenceWithoutStart =
+      cutTheCorrectElementsFromTheBeginningOfTheSequence(sequenceWithoutEnd)
+    checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutStart)
+  }
+
+  function ChecksIfTheArrayIsStrictlyIncreasingByCheckingFromTheBeginningToTheEnd() {
+    sequenceWithoutStart =
+      cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence)
+    removeTheSecondElementFromTheArray(sequenceWithoutStart)
+    sequenceWithoutEnd =
+      cutTheCorrectElementsFromTheEndOfTheSequence(sequenceWithoutStart)
+    checkIfThereIsASingleElementLeftInTheArray(sequenceWithoutEnd)
+  }
+
+  function cutTheCorrectElementsFromTheEndOfTheSequence(sequence) {
+    let modifiedSequence = [...sequence]
+    for (let index = sequence.length - 1; index > 0; index--) {
+      const element = sequence[index]
+      const previousElementToCompare = sequence[index - 1]
+      if (element <= previousElementToCompare) {
+        break
+      } else {
+        modifiedSequence.pop()
+      }
+    }
+    return modifiedSequence
+  }
+
+  function removePenultimateElementOfArray(sequence) {
+    let element = sequence[sequence.length - 1]
+    sequence.pop()
+    sequence.pop()
+    sequence.push(element)
+  }
+
+  function cutTheCorrectElementsFromTheBeginningOfTheSequence(sequence) {
+    let modifiedSequence = [...sequence]
+    for (let index = 0; index < sequence.length - 1; index++) {
+      const element = sequence[index]
+      const nextElementToCompare = sequence[index + 1]
+      if (element >= nextElementToCompare) {
+        break
+      } else {
+        modifiedSequence.shift()
+      }
+    }
+    return modifiedSequence
+  }
+
+  function removeTheSecondElementFromTheArray(sequence) {
+    let element = sequence[0]
+    sequence.shift()
+    sequence.shift()
+    sequence.unshift(element)
+  }
+
+  function checkIfThereIsASingleElementLeftInTheArray(sequence) {
+    if (sequence.length <= 1) {
+      result = true
+    }
+  }
+}
+
+sequence = [3, 5, 67, 98, 3]
+solution(sequence)
+>>>>>>> 940028abc23dcfc2b28550aebef26a46ac733654
 
 // Codewriting
 
@@ -76,4 +157,8 @@ solution(matrix)
 
 // [output] integer
 
+<<<<<<< HEAD
 // The total price of all the rooms that are suitable for the CodeBots to live in.
+=======
+// Return true if it is possible to remove one element from the array in order to get a strictly increasing sequence, otherwise return false.
+>>>>>>> 940028abc23dcfc2b28550aebef26a46ac733654
