@@ -1,15 +1,12 @@
 function solution(matrix) {
     let result = 0
-    for (let i = 0; i < matrix.length-1; i++) {
-        arrayOfMatrix = matrix[i]
-        for (let j = 0; j < arrayOfMatrix.length; j++) {
-            const element = matrix[i][j]
-            const elementBeneath = matrix[i+1][j]
-            if (i == 0) {
-                result = result + element
-            }
-            if (element != 0) {
-                result = result + elementBeneath
+    let arrayOfMatrix = matrix[0]
+    for (let i = 0; i < arrayOfMatrix.length; i++) {       
+        for (let j = 0; j < matrix.length; j++) {
+            const element = matrix[j][i]
+            result = result + element
+            if (element == 0) {
+                break
             }
         }
     }
