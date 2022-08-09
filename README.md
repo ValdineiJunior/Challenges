@@ -1,8 +1,8 @@
 # Hackerrank
 
-- Em cada arquivo JS esta a resolução de um desafio do Hackerrank.
+- Em cada arquivo JS esta a resolução de um desafio do CodeSignal.
 
-- Abaixo da resolução também há o link do desafio, e uma descrição sobre ele.
+- Abaixo da resolução também há uma descrição sobre o desafio.
 
 - Navegue entre eles para dar uma rápida olhada em meus códigos.
 
