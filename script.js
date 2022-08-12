@@ -1,22 +1,42 @@
 function solution(a, b) {
     let result = true
+    let indexOfTheElementInArrayA = 0
+    let indexOfTheElementInArrayB = 0
     for (let index = 0; index < a.length; index++) {
         const elementA = a[index];
         const elementB = b[index];
         if (elementA != elementB) {
+            indexOfTheElementInArrayA = index
             indexOfTheElementInArrayB = b.indexOf(elementA)
+            const elementX = a[indexOfTheElementInArrayB]
+            let elementY = b[indexOfTheElementInArrayB]
+            console.log(elementX)
+            console.log(elementY)
 
-        }
-        
+            while (elementX == elementY) {
+                indexOfTheElementInArrayB = b.indexOf(elementA,indexOfTheElementInArrayB+1)
+                console.log(indexOfTheElementInArrayB) 
+                elementY = b[indexOfTheElementInArrayB]            
+            }
+            break
+        }  
     }
-    console.log(a)
-    console.log(b)
+    [b[indexOfTheElementInArrayA],b[indexOfTheElementInArrayB]] = [b[indexOfTheElementInArrayB],b[indexOfTheElementInArrayA]]
+    for (let index = 0; index < a.length; index++) {
+        const elementA = a[index];
+        const elementB = b[index];
+        if (elementA != elementB) {
+            result = false
+            break
+        }  
+    }
+    
     console.log(result)
     return result
 }
 
-const a = [832, 998, 148, 570, 533, 561, 894, 147, 455, 279]
-const b = [832, 570, 148, 998, 533, 561, 455, 147, 894, 279]
+const a = [1, 2, 1, 2, 2, 1]
+const b = [2, 2, 1, 1, 2, 1]
 
 solution(a,b)
 // Codewriting
