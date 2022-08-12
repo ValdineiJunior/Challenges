@@ -1,32 +1,45 @@
 function solution(inputString) {
-    let indexOpenBracket = []
-    let indexCloseBracket = []
-    cutExpressionInParentheses()
+  let openingParenthesesIndex = -1
+  let closingParenthesesIndex = -1
 
-    function cutExpressionInParentheses() {
-        indexOpenBracket = inputString.indexOf('(')
-        indexCloseBracket = inputString.lastIndexOf(')')
-        reverseExpression()
-        function reverseExpression() {
-            let expressionInParentheses = inputString.substring(indexOpenBracket,indexCloseBracket+1)
-            console.log(expressionInParentheses)
-            let arrayExpressionInParentheses = expressionInParentheses.split('')
-            let arrayreverseExpression = arrayExpressionInParentheses.reverse()
-            arrayreverseExpression.pop()
-            arrayreverseExpression.shift()
-            let reverseExpression = arrayreverseExpression.toString()
-            reverseExpression = reverseExpression.replaceAll(',','')
-            inputString = inputString.replace(expressionInParentheses, reverseExpression)
-        }
+  findTheIndexOfTheExpressionToReverse()
+  while (openingParenthesesIndex != -1) {
+    reverseExpression()
+    findTheIndexOfTheExpressionToReverse()
+  }
 
-        }
-        
-    console.log(inputString)
-    return inputString
+  function findTheIndexOfTheExpressionToReverse() {
+    for (let index = 0; index < inputString.length; index++) {
+      const element = inputString[index]
+      if (element == '(') {
+        openingParenthesesIndex = index
+      } else if (element == ')') {
+        closingParenthesesIndex = index
+        break
+      }
+    }
+  }
+
+  function reverseExpression() {
+    // prettier-ignore
+    let expressionInParentheses = inputString.substring(openingParenthesesIndex,closingParenthesesIndex+1)
+    let arrayExpressionInParentheses = expressionInParentheses.split('')
+    let arrayreverseExpression = arrayExpressionInParentheses.reverse()
+    arrayreverseExpression.pop()
+    arrayreverseExpression.shift()
+    let reverseExpression = arrayreverseExpression.toString()
+    reverseExpression = reverseExpression.replaceAll(',', '')
+    // prettier-ignore
+    inputString = inputString.replace(expressionInParentheses,reverseExpression)
+    openingParenthesesIndex = -1
+    closingParenthesesIndex = -1
+  }
+  console.log(inputString)
+  return inputString
 }
 
-const inputString = "foo(bar)baz(blim)"
-const inputString2 = "foo(bar(baz))blim"
+const inputString = 'foo(bar)baz(blim)'
+const inputString2 = '(bar)'
 
 solution(inputString2)
 
