@@ -1,19 +1,13 @@
 function solution(image) {
   let resultLine = []
-  cut3x3(0,0)
-  cut3x3(0,1)
-  let result = []
-  result.push(resultLine)
-  resultLine = []
-  cut3x3(1,0)
-  cut3x3(1,1)
-  result.push(resultLine)
-  resultLine = []
-  // for (let index = 0; index < image.length; index++) {
-  //   const element = array[index];
-    
-  // }
-
+  let result = [] 
+  for (let i = 0; i < image.length-2; i++) {
+    for (let j = 0; j < image[0].length-2; j++) {
+      cut3x3(i,j)
+    }
+    result.push(resultLine)
+    resultLine = []
+  }
   function cut3x3(line,column) {
     let array3x3 = []
     for (let i = column; array3x3.length < 3 ; i++) {
@@ -21,18 +15,18 @@ function solution(image) {
         array3x3.push(image[j].slice(i,i+3))
       }
     }
-    console.log(array3x3)
     resultLine.push(distorts(array3x3))
   }
-  
   function distorts(cutimage) {
     let pixel = 0
     for (let index = 0; index < cutimage.length; index++) {
        pixel = pixel + cutimage[index].reduce((a,b) => a+b)
       }
-      return pixel/9
+      pixel = Math.floor(pixel/9)
+      return pixel
   }
   console.log(result)
+  return result
 }
 
 const image = 
